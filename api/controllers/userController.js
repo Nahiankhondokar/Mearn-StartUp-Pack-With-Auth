@@ -2,6 +2,7 @@ import User from './../models/User.js';
 import bcrypt from 'bcryptjs';
 import createError from './errorController.js';
 import jwt from 'jsonwebtoken';
+import { SendEmail } from '../utility/SendEmail.js';
 
 
 /**
@@ -170,7 +171,10 @@ export const getAllUser = async (req, res, next) => {
         const user = await User.create({
             ...req.body,  
             password : hash
-        }, { new : true });
+        });
+
+        // send verify email
+        await SendEmail(user.email, 'Instagram', `<span>${user.name} Verify your account</span>`);
 
         res.status(200).json(user);
 
