@@ -168,7 +168,7 @@ export const getAllUser = async (req, res, next) => {
         
         // data store
         const user = await User.create({
-            ...req.body, 
+            ...req.body,  
             password : hash
         }, { new : true });
 
@@ -212,6 +212,51 @@ export const getAllUser = async (req, res, next) => {
     user : login_info
     
    });
+
+
+}
+
+
+
+/**
+ *  @access Public
+ *  @route api/User/loggedinuserdata
+ *  @method GET
+ */
+export const getLoggedInUser = async (req, res, next) => {
+
+    try {
+
+        const bearer_token = req.headers.authorization;
+
+        // bearer token check
+        if(!bearer_token){
+            next(createError(404, 'token not found'));
+        }else {
+
+            const token = bearer_token.split(' ')[1];
+            
+            // token varify
+            const token_verify = jwt.verify(token, process.env.JWT_SECRET);
+
+            // error msg
+            if(!token_verify){
+                next(createError(404, 'invalid token'));
+            }
+
+            // login user data
+            if(token_verify){
+
+                const user = await User.findById(token_verify.id);
+
+                res.status(200).json(user);
+            }
+        }
+        
+        
+    } catch (error) {
+        next(error)
+    }
 
 }
 

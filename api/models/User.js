@@ -4,57 +4,48 @@ import mongoose from "mongoose";
 // student shcema design 
 const userSchema = mongoose.Schema({
     name : {
-        type : String,
-        required : [true, 'name feild is required'],
-        unique : true, 
-        trim : true
-    }, 
-    email : {
-        type : String,
-        required : [true, 'email feild is required'],
-        unique : true, 
-        trim : true
-    }, 
-    cell : {
-        type : String,
-        required : [true, 'cell feild is required'],
-        unique : true, 
-        trim : true
-    }, 
-    age : {
-        type : Number,
-        required : [true, 'age feild is required'],
-        trim : true
+        type: String,
+        trim: true
     },
-    gender : {
-        type : String
+    email : {
+        type: String,
+        trim: true,
+        unique: true
+    },
+    cell : {
+        type: String,
+        trim: true,
     },
     username : {
-        type : String,
-        required : [true, 'username feild is required'],
-        trim : true
-    }, 
+        type: String,
+        trim: true,
+        unique: true
+    },
+    age : {
+        type: String
+    },
+    gender : {
+        type: String
+    },
     password : {
-        type : String,
-        required : [true, 'password feild is required'], 
-        trim : true
-    }, 
+        type: String,
+        trim: true
+    },
     photo : {
-        type : String,
-        default : 'avatar.png'
-    }, 
+        type: String
+    },
     isAdmin : {
-        type : Boolean,
-        default : false
-    }, 
+        type: Boolean,
+        default: false
+    },
     status : {
-        type : Boolean,
-        default : true
-    }, 
+        type: Boolean,
+        default: true
+    },
     trash : {
-        type : Boolean,
-        default : false
-    }, 
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps : true
 });
